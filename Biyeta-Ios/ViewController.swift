@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var _user_name: UITextField!
     @IBOutlet weak var _userpassword: UITextField!
+    
+    let parameters: Parameters = ["user_login[email] ": "test.biyeta.com"]
     
     var activityInductor: UIActivityIndicatorView = UIActivityIndicatorView()
     override func viewDidLoad() {
@@ -49,9 +52,31 @@ class ViewController: UIViewController {
             print("call network operation")
           
             activityInductor.startAnimating()
-            ///new work call for login
+            login {
+                activityInductor.stopAnimating()
+                
+                performSegue(withIdentifier: "main_ui_segue", sender: self)
+            }
         }
         
+    }
+    
+    
+    func login (completed : downloadComplete)
+    {
+        let parameters : [ String : String] = [
+            "user_login[email]":"test7@biyeta.com",
+            "user_login[password]":"password"
+        ]
+        
+        Alamofire.request(baseURL+signUpSubURL, method: .post, parameters: parameters).responseJSON { response in
+           
+                    print("\(response.result.value)")
+            
+        }
+        
+        
+        completed()
     }
 
 }

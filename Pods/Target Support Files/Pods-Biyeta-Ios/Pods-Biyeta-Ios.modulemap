@@ -1,0 +1,6 @@
+framework module Pods_Biyeta_Ios {
+  umbrella header "Pods-Biyeta-Ios-umbrella.h"
+
+  export *
+  module * { export * }
+}
